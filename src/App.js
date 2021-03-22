@@ -1,7 +1,23 @@
+import React, { useState } from 'react';
 import './App.css';
 import Post from './Post';
 
 function App() {
+  const [posts, setPosts] = useState([
+    {
+      username: 'jaehan',
+      caption: 'This is a fun project',
+      imageUrl:
+        'https://image.shutterstock.com/image-vector/js-logo-monogram-emblem-style-260nw-1715326756.jpg',
+    },
+    {
+      username: 'jaehan',
+      caption: 'This is a fun project',
+      imageUrl:
+        'https://image.shutterstock.com/image-vector/js-logo-monogram-emblem-style-260nw-1715326756.jpg',
+    },
+  ]);
+
   return (
     <div className='app'>
       <div className='app__header'>
@@ -13,6 +29,14 @@ function App() {
       </div>
       {/* Header */}
       <h1>Test</h1>
+
+      {posts.map((post) => (
+        <Post
+          username={post.username}
+          caption={post.caption}
+          imageUrl={post.imageUrl}
+        />
+      ))}
 
       <Post
         username='cleverqazi'

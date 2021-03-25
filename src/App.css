@@ -19,3 +19,9 @@
 .app__headerImage{
   height: 8vh;
 }
+
+.app__signup {
+  display: flex;
+  flex-direction: column;
+
+}

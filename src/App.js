@@ -5,6 +5,7 @@ import { db, auth } from './firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input } from '@material-ui/core';
+import ImageUpload from './ImageUpload';
 
 function getModalStyle() {
   const top = 50;
@@ -42,10 +43,14 @@ function App() {
   //아래 내용이 firebaseDB에서 data 가져올때 필요한 전부
   useEffect(() => {
     //this is where the code runs
-    db.collection('posts').onSnapshot((snapshot) => {
-      // setPosts(snapshot.docs.map((doc) => doc.data()));
-      setPosts(snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() })));
-    }); // every time a new post is added, this code fires up
+    db.collection('posts')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) => {
+        // setPosts(snapshot.docs.map((doc) => doc.data()));
+        setPosts(
+          snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() }))
+        );
+      }); // every time a new post is added, this code fires up
   }, []);
 
   useEffect(() => {
@@ -91,6 +96,7 @@ function App() {
   };
 
   const signIn = (event) => {
+    // console.log(user);
     event.preventDefault();
     auth
       .signInWithEmailAndPassword(email, password)
@@ -101,6 +107,16 @@ function App() {
 
   return (
     <div className='app'>
+      {/* I want to have.... */}
+      {/* Caption input */}
+      {/* File picker */}
+      {/* Post button */}
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <h3>Sorry you need to login to upload</h3>
+      )}
+
       <Modal open={open} onClose={() => setOpen(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className='app__signup'>

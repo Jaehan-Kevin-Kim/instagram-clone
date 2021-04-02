@@ -111,12 +111,6 @@ function App() {
       {/* Caption input */}
       {/* File picker */}
       {/* Post button */}
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ) : (
-        <h3>Sorry you need to login to upload</h3>
-      )}
-
       <Modal open={open} onClose={() => setOpen(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className='app__signup'>
@@ -187,16 +181,15 @@ function App() {
           src='https://1000logos.net/wp-content/uploads/2017/02/Instagram-Logo.png'
           alt='logo'
         />
+        {user ? (
+          <Button onClick={() => auth.signOut()}>Logout</Button>
+        ) : (
+          <div className='app__loginContainer'>
+            <Button onClick={() => setOpenSignIn(true)}>Sign in</Button>
+            <Button onClick={() => setOpen(true)}>Sign up</Button>
+          </div>
+        )}
       </div>
-
-      {user ? (
-        <Button onClick={() => auth.signOut()}>Logout</Button>
-      ) : (
-        <div className='app__loginContainer'>
-          <Button onClick={() => setOpenSignIn(true)}>Sign in</Button>
-          <Button onClick={() => setOpen(true)}>Sign up</Button>
-        </div>
-      )}
 
       {/* Header */}
       <h1>Test</h1>
@@ -210,7 +203,13 @@ function App() {
         />
       ))}
 
-      <Post
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <h3>Sorry you need to login to upload</h3>
+      )}
+
+      {/* <Post
         username='cleverqazi'
         caption='WOW it works'
         imageUrl='https://www.andreasreiterer.at/wp-content/uploads/2017/11/react-logo-825x510.jpg'
@@ -224,7 +223,7 @@ function App() {
         username='jaehan'
         caption='This is a fun project'
         imageUrl='https://image.shutterstock.com/image-vector/js-logo-monogram-emblem-style-260nw-1715326756.jpg'
-      />
+      /> */}
 
       {/* Posts */}
       {/* Posts */}

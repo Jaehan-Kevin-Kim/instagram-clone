@@ -16,6 +16,7 @@ const ImageUpload = ({ username }) => {
     }
   };
   const handleUpload = () => {
+    console.log(image);
     const uploadTask = storage.ref(`images/${image.name}`).put(image);
 
     //아래 코드는 진행 bar를 표현하기 위한 코드
